@@ -21,19 +21,19 @@ import { Redirect } from 'react-router';
 import Home from './views/Home';
 import Dashboard from './views/dashboard/Dashboard';
 import OAuth from './views/auth/OAuth';
+import StockKeepingUnit from './views/sku/StockKeepingUnit';
 
 class App extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            visible: false,
-            isAuthenticated: false
+            visible: false
         };
     }
 
-    toggleVisibility() {
-        this.setState({ visible: !this.state.visible });
+    toggleVisibility(state) {
+        this.setState({ visible: !state.visible });
     }
 
     authenticate() {
@@ -73,12 +73,10 @@ class App extends Component {
     componentDidMount() {
 
         this.authenticate();
-        
+
     }
 
     render() {
-
-        const { visible } = this.state
 
         return (
             <div style={{ height: '100%' }}>
@@ -86,7 +84,7 @@ class App extends Component {
           <Menu id="topbar" fixed='top' inverted>
 
             <Menu.Item>
-              <Button onClick={this.toggleVisibility} icon='sidebar' inverted></Button>
+              <Button onClick={() => this.toggleVisibility(this.state)} icon='sidebar' inverted></Button>
             </Menu.Item>
             <Menu.Item as='a' header>
               <Image
@@ -101,9 +99,9 @@ class App extends Component {
 
             <BrowserRouter>
 
-              <Sidebar.Pushable as={Container} fluid style={{ marginTop: '48px' }}>
+              <Sidebar.Pushable as={Container} fluid style={{ marginTop: '5em' }}>
 
-                <Sidebar as={Menu} animation='slide along' width='thin' visible={visible} icon='labeled' vertical inverted>
+                <Sidebar as={Menu} animation='slide along' width='thin' visible={this.state.visible} icon='labeled' vertical inverted>
 
                   <Menu.Item name='dashboard'>
                     <Icon name='dashboard' link/>
@@ -120,11 +118,12 @@ class App extends Component {
 
                 </Sidebar>
 
-                <Sidebar.Pusher as={Container} fluid>
+                <Sidebar.Pusher as={Container}>
                   <Grid stackable>
                     
                     <Route exact path="/" component={Home}></Route>
                     <Route path="/dashboard" component={Dashboard}></Route>
+                    <Route path="/sku" component={StockKeepingUnit}></Route>
 
                   </Grid>
                 </Sidebar.Pusher>

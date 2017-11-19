@@ -38,7 +38,7 @@ class Dashboard extends React.Component {
         const { items } = this.state;        
 
         return (
-            <Grid.Row columns="5" centered>
+            <Grid.Column columns="5" centered>
                 <Modal trigger={<Button>Basic Modal</Button>} basic size='small'>
                     <Header icon='archive' content='Archive Old Messages' />
                     <Modal.Content>
@@ -53,7 +53,7 @@ class Dashboard extends React.Component {
                       </Button>
                     </Modal.Actions>
                   </Modal>
-            </Grid.Row>
+            </Grid.Column>
         );
     }
 
